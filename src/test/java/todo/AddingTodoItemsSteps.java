@@ -1,10 +1,15 @@
 package todo;
 
+import actions.AddItemsActions;
+import actions.DisplayedItemsList;
+import actions.NavigateActions;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.annotations.Step;
+import net.serenitybdd.annotations.Steps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -18,33 +23,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AddingTodoItemsSteps {
 
-    WebDriver driver;
+    @Steps
+    NavigateActions navigate;
 
-    @Before("@webtest")
-    public void setUpDriver(){
-        driver = new ChromeDriver();
-    }
+    @Steps
+    AddItemsActions addItem;
 
-    @After("@webtest")
-    public void closeDriver(){
-        driver.quit();
-    }
-
+    DisplayedItemsList displayedItemsList;
 
     @Given("Todd has an empty list")
     public void todd_has_an_empty_list() {
-        driver.get("https://todomvc.com/examples/angularjs/#/");
+        navigate.toHomePage();
 
     }
+
     @When("he adds {string}")
     public void he_adds(String todoItem) {
-        driver.findElement(By.cssSelector(".new-todo")).sendKeys(todoItem);
-        driver.findElement(By.cssSelector(".new-todo")).sendKeys(Keys.ENTER);
+        addItem.called(todoItem);
     }
+
     @Then("he see following item on the do to list")
     public void he_see_following_item_on_the_do_to_list(List<String> todoItems) {
-        List<String> displayedTodoList = driver.findElements(By.cssSelector(".todo-list label"))
-                .stream().map(WebElement::getText).toList();
+
+        List<String> displayedTodoList = displayedItemsList.getDisplayedItemList();
         assertThat(displayedTodoList).containsExactlyElementsOf(todoItems);
 
     }

@@ -15,6 +15,7 @@
         <junit-vintage-engine.version>5.1.0</junit-vintage-engine.version>
         <junit-platform-suite.version>1.10.0</junit-platform-suite.version>
         <cucumber-junit-platform-engine.version>7.14.0</cucumber-junit-platform-engine.version>
+        <rest.assured.version>5.3.0</rest.assured.version>
         <encoding>UTF-8</encoding>
         <tags></tags>
         <webdriver.base.url></webdriver.base.url>
@@ -48,6 +49,18 @@
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-ensure</artifactId>
             <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-rest-assured</artifactId>
+            <version>${serenity.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${rest.assured.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
